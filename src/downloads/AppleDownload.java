@@ -10,7 +10,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class AppleDownload {
-	static String url = "https://reportingitc2.apple.com/api/downloadCannedReport?vendorID=85097056&reportType=2A&endDate=2014%2F07%2F25&vendorType=1";
+	static String url = "https://reportingitc2.apple.com/api/report?vendorID=85097056&reportType=2A&endDate=2014%2F07%2F25&vendorType=1&CSRF=CDRD-B1K7-LGH8-KZKV-RFJI-2DNP-WJ6N-Y7LJ-32S7-5KTJ-DOMI-30AX-IRXU-XNXP-5HSI-H4YR-YZ34-M81I-EPQJ-54TG-8IYF-R1CS-641X-VTXA-8RV8-4ETJ-ENV7-22DK-YRHK-XA67-7Q2S-3C3M&_=1433682943799";
 	
 	public static void main (String [] argv) throws IOException, URISyntaxException, SQLException{
 		

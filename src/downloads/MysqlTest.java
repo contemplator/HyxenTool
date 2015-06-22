@@ -37,7 +37,7 @@ public class MysqlTest {
   			con = DriverManager.getConnection(
   					"jdbc:mysql://localhost/hyxen?useUnicode=true&characterEncoding=utf8",
   					"root",
-  					"nccu6020");
+  					"fourteen");
   		} catch(ClassNotFoundException e){
   			System.out.println("DriverClassNotFound :"+e.toString());
   		} catch(SQLException x){

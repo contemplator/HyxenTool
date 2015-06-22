@@ -1,24 +1,17 @@
 package downloads;
 
 import java.awt.Desktop;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
-import java.net.URLConnection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-
-import javax.swing.JOptionPane;
 
 public class GoogleDownload {
 	static String[] filepath = {
@@ -66,14 +59,16 @@ public class GoogleDownload {
 		String lastDate = getStartDate();
 		HashMap<String, String> appsLink = setLinks();
 		String date = lastDate.substring(8, 10);
-		date = Integer.toString((Integer.parseInt(date)) +1);
+		date = Integer.toString((Integer.parseInt(date)));
 		if(date.length()<2){
 			date = "0"+date;
 		}
 		String startdate = lastDate.substring(0, 4) + lastDate.substring(5, 7) + date;
+		System.out.println("Start date is " + startdate);
 		
 		String enddate = null;
 		enddate = getDateTime();
+		System.out.println("End date is " + enddate);
 		for( Object key : appsLink.keySet()){
 			String link = appsLink.get(key).toString();
 			if(link.contains("20100101") && link.contains("20100102")){
@@ -132,9 +127,11 @@ public class GoogleDownload {
 	}
 	
 	public static String getDateTime(){
-		
-		String strDate = JOptionPane.showInputDialog("請輸入Google Play 後台可查詢的最新一日：", "可至 http://goo.gl/V0mjru 查詢, 格式：20140101");
-		System.out.println(strDate);
+		Calendar cal = Calendar.getInstance();   
+		cal.add(Calendar.DAY_OF_MONTH, -2);
+		SimpleDateFormat sdFormat = new SimpleDateFormat("yyyyMMdd");
+//		Date date = new Date();
+		String strDate = sdFormat.format(cal.getTime());
 		return strDate;
 	}
 
@@ -142,16 +139,16 @@ public class GoogleDownload {
 		MysqlTest db = new MysqlTest();
 		System.out.println("connected!");
 		String lastData = db.getLastData();
-		return lastData;
-	}
-	
-	private static String addZero(String singleDate){
-		String doubleDate = "";
-		if(Integer.parseInt(singleDate) < 10){
-			doubleDate = 0 + singleDate;
-		}else{
-			doubleDate = singleDate;
-		}
-		return doubleDate;
+		Calendar c = Calendar.getInstance();
+		Date dt = new Date();
+		dt.setDate(Integer.parseInt(lastData.substring(8, 10)));
+		dt.setMonth(Integer.parseInt(lastData.substring(5, 7))-1);
+		dt.setYear((2015-1900));
+		c.setTime(dt);
+		c.add(Calendar.DATE, 1);
+		dt = c.getTime();
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		formatter.format(dt);
+		return formatter.format(dt).toString();
 	}
 }
